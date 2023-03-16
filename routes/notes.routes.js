@@ -42,11 +42,13 @@ router.get('/notes', isAuthorized, async (req, res) => {
 //update note
 router.patch('/notes', isAuthorized, async (req, res) => {
     try {
-        await Note.findByIdAndUpdate(req.body.id, {
+        const updated = await Note.findByIdAndUpdate(req.body.id, {
             title: req.body.title,
             content: req.body.content
         });
-        res.status(200).json({ resposne: true, message: "Update successful." });
+        if (updated)
+            return res.status(200).json({ resposne: true, message: "Update successful." });
+        res.status(500).json({ response: false, message: "Someting went wrong." });
     } catch (error) {
         res.status(500).json({ response: false, message: error.message });
     }
