@@ -21,9 +21,9 @@ router.post('/register', async (req, res) => {
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
-        res.status(200).json({ response: true, message: 'User created successfully!' });
+        res.status(400).json({ response: true, message: 'User created successfully!' });
     } catch (error) {
-        res.status(500).json({ response: false, message: "Error creating user!" });
+        res.status(400).json({ response: false, message: "Error creating user!" });
     }
 
 
@@ -36,16 +36,16 @@ router.post('/register', async (req, res) => {
 router.post('/login', (req, res) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return res.status(500).json({ response: false, message: err.message })
+            return res.status(400).json({ response: false, message: err.message })
         }
         if (!user) {
-            return res.status(500).json({ response: false, message: 'Authentication failed' });
+            return res.status(400).json({ response: false, message: 'Authentication failed' });
         }
 
         //request for login
         req.login(user, loginErr => {
             if (loginErr) {
-                return res.status(500).json({ response: false, message: loginErr.message });
+                return res.status(400).json({ response: false, message: loginErr.message });
             }
             res.status(200).json({ response: true, message: "Loggedin successful." })
         });
@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
 router.post('/logout', (req, res) => {
     req.logout((err) => {
         if (err) {
-            return res.status(500).json({ response: false, message: err.message });
+            return res.status(404).json({ response: false, message: err.message });
         }
         res.status(200).json({ response: true, message: "Logout successful." })
     });
