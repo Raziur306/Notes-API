@@ -15,7 +15,7 @@ const notesRouter = require('./routes/notes.routes');
 
 app.use(session({
     secret: 'You are a dog.',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_DB_URL,
