@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
 
         res.status(200).json({ response: true, message: 'User created successfully!' });
     } catch (error) {
-        res.status(500).json({ respones: false, message: "Error creating user!" });
+        res.status(500).json({ response: false, message: "Error creating user!" });
     }
 
 
@@ -39,13 +39,13 @@ router.post('/login', (req, res) => {
             return res.status(500).json({ response: false, message: err.message })
         }
         if (!user) {
-            return res.status(500).json({ success: false, message: 'Authentication failed' });
+            return res.status(500).json({ response: false, message: 'Authentication failed' });
         }
 
         //request for login
         req.login(user, loginErr => {
             if (loginErr) {
-                return res.status(500).json({ success: false, message: loginErr.message });
+                return res.status(500).json({ response: false, message: loginErr.message });
             }
             res.status(200).json({ response: true, message: "Loggedin successful." })
         });
