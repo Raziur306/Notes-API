@@ -8,7 +8,7 @@ The project was design to provide an API that can perform CRUD operations using 
 * [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
 * [Mongoose](https://github.com/Automattic/mongoose)
 * [Connect-Mongo](https://github.com/jdesboeufs/connect-mongo)
-* [Passport js](https://www.passportjs.org/)
+* [JWT]([https://www.passportjs.org/](https://www.npmjs.com/package/jsonwebtoken))
 
 
 ## Live Preview
@@ -32,6 +32,15 @@ Request Body:
 }
 ```
 
+Response Body:
+
+```json
+{
+    "response": true,
+    "message": "Sign in sucessful.",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJheml1ci5yYWhhbWFuLnJvbmp1QGdtYWlsLmNvbSIsImlkIjoiNjQxYzc3NGU2ZjdmNTQ4OTU0YjZjODlmIiwiaWF0IjoxNjc5NTg3NDUwfQ.vvnL18_rWvFrERoWmrXR4uTR5vkPvNbEXuseMlqhff4"
+}
+```
 `Endpoint: /api/login`
 
 * Description: User login.
@@ -41,6 +50,15 @@ Request Body:
 {
     "email":"raziur.rahaman.ronju@gmail.com",
     "password":"1234"
+}
+```
+Response Body:
+
+```json
+{
+    "response": true,
+    "message": "Sign in sucessful.",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJheml1ci5yYWhhbWFuLnJvbmp1QGdtYWlsLmNvbSIsImlkIjoiNjQxYzc3NGU2ZjdmNTQ4OTU0YjZjODlmIiwiaWF0IjoxNjc5NTg3NDUwfQ.vvnL18_rWvFrERoWmrXR4uTR5vkPvNbEXuseMlqhff4"
 }
 ```
 
@@ -62,8 +80,22 @@ Request Body:
 
 * Description: To get existing notes from the database. 
 
+Response Body:
+```json
+{
+    "response": true,
+    "notes": [
+        {
+            "_id": "641c802d134bc0f7fd02f105",
+            "title": "Test Note 1",
+            "description": "First note description was this.",
+            "__v": 0
+        }
+    ]
+}
+```
 
-### PATCH
+### PUT
 `Endpoint: /api/notes`
 
 * Description: To update content of existing notes.
@@ -73,12 +105,5 @@ Request Body:
 `Endpoint: /api/notes`
 * Description: To Delete content of existing notes.
 
-Request Body:
 
-```json
-{
-   "id": "<note_id>"
-}
-```
-
-For accessing all the funcitonality user must need to be loggged in. Unauthorized acess was restricted by default.
+For accessing all the funcitonality user must need to be loggged in and store the token in a safe place. And need to send data to header for operation like (update, delete, create) note. Unauthorized acess was restricted by default.
