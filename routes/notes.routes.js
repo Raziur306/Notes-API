@@ -13,11 +13,11 @@ router.get('/notes', auth, getNote);
 
 
 //update note
-router.put('/notes:id', auth, updateNote);
+router.put('/notes/:id', auth, updateNote);
 
 
 //delete note
-router.delete('/notes:id', auth, deleteNote);
+router.delete('/notes/:id', auth, deleteNote);
 
 
 module.exports = router;
