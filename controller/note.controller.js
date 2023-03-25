@@ -6,7 +6,7 @@ const createNote = async (req, res) => {
     const newNote = noteModel({ title, description, user_id: req.userId });
     try {
         await newNote.save();
-        res.status(201).json({ response: true, new_note: { _id: newNote._id, title: newNote.title, description: newNote.description } })
+        res.status(201).json({ response: true, note: { _id: newNote._id, title: newNote.title, description: newNote.description, createdAt: newNote.createdAt, updatedAt: newNote.updatedAt, __v: newNote.__v } })
 
     } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ const getNote = async (req, res) => {
             return rest;
         });
 
-        res.status(200).json({ response: true, notes })
+        res.status(200).json(notes)
 
     } catch (error) {
         console.log(error);
@@ -43,7 +43,7 @@ const updateNote = async (req, res) => {
     }
     try {
         await noteModel.findByIdAndUpdate(id, newNote, { new: true });
-        res.status(200).json({ response: true, updated_note: { _id: id, description, title } })
+        res.status(200).json({ response: true, note: { _id: id, description, title, createdAt: newNote.createdAt, updatedAt: newNote.updatedAt, __v: newNote.__v } })
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }
@@ -55,7 +55,7 @@ const deleteNote = async (req, res) => {
     const id = req.params.id
     try {
         const note = await noteModel.findByIdAndDelete(id)
-        res.status(200).json({ response: true, deleted_note: { _id: id, description: note.description, title: note.title } })
+        res.status(200).json({ response: true, note: { _id: id, description: note.description, title: note.title, createdAt: note.createdAt, updatedAt: note.updatedAt, __v: note.__v } })
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "something went wrong" })
