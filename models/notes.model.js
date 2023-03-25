@@ -3,7 +3,8 @@ const { default: mongoose, model } = require('mongoose');
 
 const schemaNotes = mongoose.Schema({
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
         required: true
     },
     title: {
@@ -13,8 +14,8 @@ const schemaNotes = mongoose.Schema({
     description: {
         type: String,
     }
-})
+}, { timestamps: true })
 
 
-const Notes = mongoose.model('notes', schemaNotes);
+const Notes = mongoose.model('Notes', schemaNotes);
 module.exports = Notes;
